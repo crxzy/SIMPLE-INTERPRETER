@@ -1,0 +1,21 @@
+program : statement
+        | statement program
+
+statement : assignment_statement
+          | empty
+
+assignment_statement : variable ASSIGN expr
+
+empty :
+
+expr: term ((PLUS | MINUS) term)*
+
+term: factor ((MUL | DIV) factor)*
+
+factor : PLUS factor
+       | MINUS factor
+       | INTEGER
+       | LPAREN expr RPAREN
+       | variable
+
+variable: ID
