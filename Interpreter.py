@@ -83,7 +83,8 @@ class Parser(object):
         if self.current_token.type == ID:
             node = self.assignment_statement()
         else:
-            node = self.empty()
+            #node = self.empty()
+            node = self.expr()
         return node
     
     def assignment_statement(self):
@@ -149,8 +150,10 @@ class Interpreter(NodeVisitor):
             return val
     
     def visit_Program(self, node):
+        result = None
         for c in node.children:
-            self.visit(c)
+            result = self.visit(c)
+        return result
 
     def interpret(self):
         tree = self.parser.program()
